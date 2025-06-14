@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MEDIMEMO - Inicio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #009c8c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      background-color: white;
+      color: black;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 90%;
+      max-width: 400px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    /* Estilo cuando el correo no es válido */
+    input.invalid {
+      border: 2px solid red;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-buttons a {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: white;
+      padding: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .social-buttons a img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .social-buttons a:hover {
+      transform: scale(1.1);
+    }
+
+    button {
+      background-color: #009c8c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #007d71;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .menu {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      margin-left: 20px;
+      margin-top: 20px;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      color: black;
+      animation: slideIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-40px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .menu .tooltip button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #007d71;
+      color: black;
+      font-size: 30px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      padding: 0;
+    }
+
+    .menu .tooltip button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 8px;
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .top-right-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #009c8c;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .top-right-button:hover {
+      background-color: #007d71;
+    }
+
+    /* Estilos para la hora en la confirmacion */
+    #alarmText {
+      font-size: 2.5rem;
+      background-color: #009c8c;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 15px;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* Estilos para la seleccion de alarma con nombre */
+    #alarmTime,
+    #alarmName {
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    #alarmName {
+      margin-left: 10px;
+      width: 60%;
+    }
+
+    .alarm-inputs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    /* Boton mas lindo en pagina de alarma */
+    #reminderPage button {
+      background-color: #009c8c;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 156, 140, 0.6);
+      transition: background-color 0.3s ease;
+    }
+
+    #reminderPage button:hover {
+      background-color: #007d71;
+    }
+
+    /* Medicamentos - input y boton */
+    #medName {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    #addMedBtn {
+      background-color: #009c8c;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 156, 140, 0.6);
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    #addMedBtn:hover {
+      background-color: #007d71;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>MEDIMEMO</h1>
+
+  <div class="container" id="loginPage">
+    <h2>Inicia sesión con</h2>
+    <div class="social-buttons">
+      <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+      </a>
+      <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X" />
+      </a>
+      <a href="https://mail.google.com" target="_blank" rel="noopener" aria-label="Gmail">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" />
+      </a>
+    </div>
+    <hr style="width: 90%; margin: 16px 0;" />
+    <input type="text" placeholder="Correo electrónico" id="user" oninput="validateEmail()" />
+    <input type="password" placeholder="Contraseña" id="pass" />
+    <button onclick="login()">Iniciar sesión</button>
+  </div>
+
+  <div class="container hidden" id="mainMenu">
+    <button class="top-right-button" onclick="logout()">↩</button>
+    <h2 style="margin-top: 0; align-self: flex-start; margin-left: 60px; position: relative; z-index: 10;">
+      Hola, que podemos hacer por ti hoy?
+    </h2>
+    <div class="menu">
+      <div class="tooltip">
+        <button onclick="showReminderPage()">🕒</button>
+        <span class="tooltiptext">Configurar una alarma</span>
+      </div>
+      <div class="tooltip">
+        <button onclick="showMedicationPage()">➕</button>
+        <span class="tooltiptext">Agregar medicina</span>
+      </div>
+      <div class="tooltip">
+        <button onclick="alert('Contactar al doctor')">📞</button>
+        <span class="tooltiptext">Contactar al doctor</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container hidden" id="reminderPage">
+    <button class="top-right-button" onclick="goBackToMenu()">↩</button>
+    <h2>Selecciona una hora para tu recordatorio</h2>
+    <div class="alarm-inputs">
+      <input type="time" id="alarmTime" />
+      <input type="text" id="alarmName" placeholder="Nombre del medicamento o alarma" />
+    </div>
+    <button onclick="confirmAlarm()">Seleccionar alarma</button>
+  </div>
+
+  <div class="container hidden" id="alarmConfirmation">
+    <button class="top-right-button" onclick="goBackToMenu()">↩</button>
+    <h2>Alarma propuesta para el medicamento:</h2>
+    <p id="alarmText"></p>
+  </div>
+
+  <div class="container hidden" id="medicationPage">
+    <button class="top-right-button" onclick="goBackToMenu()">↩</button>
+    <h2>Añadir medicamento</h2>
+    <input type="text" id="medName" placeholder="Nombre del medicamento" />
+    <button id="addMedBtn" onclick="addMedication()">Añadir medicamento</button>
+  </div>
+
+  <script>
+    let medications = [];
+
+    function validateEmail() {
+      const userInput = document.getElementById('user');
+      const loginButton = document.querySelector('#loginPage button');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(userInput.value)) {
+        userInput.classList.remove('invalid');
+        loginButton.disabled = false;
+      } else {
+        userInput.classList.add('invalid');
+        loginButton.disabled = true;
+      }
+    }
+
+    function login() {
+      const user = document.getElementById('user').value.trim();
+      const pass = document.getElementById('pass').value.trim();
+      if (user && pass) {
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('mainMenu').classList.remove('hidden');
+      } else {
+        alert('Por favor, ingresa correo y contraseña.');
+      }
+    }
+
+    function logout() {
+      document.getElementById('loginPage').classList.remove('hidden');
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('user').value = '';
+      document.getElementById('pass').value = '';
+      validateEmail();
+    }
+
+    function showReminderPage() {
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('reminderPage').classList.remove('hidden');
+    }
+
+    function showMedicationPage() {
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('medicationPage').classList.remove('hidden');
+    }
+
+    function goBackToMenu() {
+      document.getElementById('reminderPage').classList.add('hidden');
+      document.getElementById('alarmConfirmation').classList.add('hidden');
+      document.getElementById('medicationPage').classList.add('hidden');
+      document.getElementById('mainMenu').classList.remove('hidden');
+    }
+
+    function confirmAlarm() {
+      const time = document.getElementById('alarmTime').value;
+      const name = document.getElementById('alarmName').value.trim();
+      if (!time) {
+        alert('Por favor, selecciona una hora para la alarma.');
+        return;
+      }
+      const alarmText = `${name ? name + ' - ' : ''}${time}`;
+      document.getElementById('alarmText').textContent = alarmText;
+      document.getElementById('reminderPage').classList.add('hidden');
+      document.getElementById('alarmConfirmation').classList.remove('hidden');
+    }
+
+    function addMedication() {
+      const medInput = document.getElementById('medName');
+      const medName = medInput.value.trim();
+      if (!medName) {
+        alert('Por favor, ingresa el nombre del medicamento.');
+        return;
+      }
+      medications.push(medName);
+      alert(`Medicamento "${medName}" añadido.`);
+      medInput.value = '';
+    }
+  </script>
+</body>
+
+</html>
