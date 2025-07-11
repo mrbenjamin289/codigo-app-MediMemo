@@ -1,0 +1,20 @@
+Ultimas actualizaciones de hace 1 mes.
+https://trello.com/b/P5mnK16A/medimemo
+Interfaces: pantalla de inicio de sesión, pantalla de opciónes tales como programar una alarma con el respectivo nombre de el medicamento, la opción de agregar el nombre de un medicamento
+para que se pueda usar en el apartado de alarmas,
+opcion de llamar a el encargado de la persona que está tomando los medicamentos.
+cada una de las opciones tiene su propia interfaz, que al terminar su funcion devuelven al usuario a la interfaz de opciones.
+interfaces faltantes: interfaz de agregar nombre de medicamentos para usarlos en el sistema de alarmas, después de ingresar el nombre de el medicamento viene otra interfaz diciendo su medicamento "x" fue agregado,
+interfaz de llamar a la persona encargada de el usuario que toma los medicamentos, consecutivamente la interfaz de agregar numeros al apretar la opcion pasará a ser otra pestaña y cuando se aprete la opción 
+de llamar a el encargado de el usuario tendrá 2 opciones, llamar a el numero o agregar otro, en la opcion de agregar otro puedes eliminar o agregar 2 numeros, que consecutivamente podras escojer en la otra opción,
+ya que si en la opción de llamar a el numero ingresado tienes 2, podras elegir entre ellos, y si solo tienes uno te llevará directamente a la aplicación de telefonos para llamar a tu encargado.
+cada interfaz será facil de usar e intuitiva, ya que está pensada para personas ya sea con trastornos que les dificulte entender las cosas, o niños.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11/07/2025
+interfaz de inicio de sesión completa, pantallas de opciones completas, las cuales son: configurar siguiente alarma de medicamento, agregar nueva medicina, contactar al doctor, y ir al calendario de pastillas.
+el sistema de agregar medicamentos para usarlos en la pantalla de alarmas está completo y funcional, puedes agregar los medicamentos, y borrar la lista.
+interfaz de llamar a encargado completa, puedes agregar varios numeros, los cuales quedan ahi para siempre, y al apretar el numero hace una llamada directa al numero, hay un botón para borrar los numeros.
+interfazes completamente intuitivas, cada una diciendo lo que hace y explicando su funcion con claridad, de esta manera no hay posibilidad alguna de que el usuario ya sea con algun transtorno o no se pierda 
+usando la aplicación.
+se espera a futuro implementar una app externa la cual se conecte a esta y de esta manera poder monitorear a los pacientes viendo sus calendarios y alarmas, para de esta manera tener conciencia sobre ellos.
+
